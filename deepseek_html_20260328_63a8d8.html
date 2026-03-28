@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Bayah | Digital Tech Services</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefefe;
+      color: #1A2C3E;
+      scroll-behavior: smooth;
+      line-height: 1.4;
+    }
+
+    :root {
+      --primary-dark: #0B2B40;
+      --primary-teal: #1B7B6E;
+      --primary-teal-light: #2C9A8A;
+      --accent-gold: #E6B12E;
+      --accent-soft: #FFE6C7;
+      --gray-bg: #F8F9FC;
+      --card-white: #FFFFFF;
+      --shadow-sm: 0 15px 35px -12px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 25px 40px -16px rgba(27, 123, 110, 0.2);
+      --border-radius: 28px;
+      --radius-card: 24px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* navbar with logo */
+    .navbar {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 6px 14px rgba(0, 0, 0, 0.02);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 0;
+      transition: all 0.2s;
+    }
+
+    .nav-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--primary-teal);
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .logo-text h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-teal) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+    .logo-text span {
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: var(--primary-teal);
+      letter-spacing: 1px;
+    }
+
+    .contact-info {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: var(--gray-bg);
+      padding: 8px 20px;
+      border-radius: 60px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+    .contact-item i {
+      font-size: 1.2rem;
+      color: var(--primary-teal);
+      background: white;
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .contact-item a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+    .contact-item a:hover {
+      color: var(--primary-teal);
+    }
+
+    /* hero */
+    .hero {
+      padding: 50px 0 30px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #0B2B40, #1B7B6E);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #4A5B6E;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* services grid */
+    .services-section {
+      padding: 48px 0 80px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+    .section-sub {
+      text-align: center;
+      color: #5A6E7E;
+      margin-bottom: 52px;
+      font-size: 1.1rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 38px;
+    }
+
+    /* service card */
+    .service-card {
+      background: var(--card-white);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 1px solid rgba(27, 123, 110, 0.1);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #EFF3F6;
+    }
+    .card-content {
+      padding: 24px 20px 28px;
+    }
+    .service-icon {
+      font-size: 2.2rem;
+      color: var(--primary-teal);
+      margin-bottom: 12px;
+    }
+    .service-card h3 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+    }
+    .service-card p {
+      color: #3E5A6B;
+      line-height: 1.45;
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-teal);
+      background: #E0F2EF;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    /* MODAL STYLES */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      max-width: 520px;
+      width: 90%;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+      animation: slideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .modal-header {
+      background: linear-gradient(105deg, var(--primary-dark), var(--primary-teal));
+      padding: 24px 28px;
+      color: white;
+    }
+    .modal-header h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .modal-header p {
+      opacity: 0.85;
+      font-size: 0.9rem;
+    }
+    .modal-body {
+      padding: 28px 28px 20px;
+    }
+    .modal-body p {
+      margin-bottom: 16px;
+      line-height: 1.5;
+      color: #2C3E4E;
+    }
+    .detail-list {
+      margin: 20px 0;
+      list-style: none;
+    }
+    .detail-list li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .detail-list li i {
+      color: var(--primary-teal);
+      width: 24px;
+      font-size: 1.2rem;
+    }
+    .modal-contact-btn {
+      background: var(--primary-teal);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.2s;
+      margin-top: 8px;
+      width: 100%;
+      justify-content: center;
+      font-family: inherit;
+    }
+    .modal-contact-btn i {
+      font-size: 1rem;
+    }
+    .modal-contact-btn:hover {
+      background: var(--primary-teal-light);
+      transform: scale(0.98);
+    }
+    .close-modal {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: white;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #222;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.2s;
+    }
+    .close-modal:hover {
+      background: var(--accent-gold);
+      color: #1A2C3E;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* contact cta */
+    .contact-cta {
+      background: linear-gradient(110deg, var(--primary-dark) 0%, #104F45 100%);
+      border-radius: 48px;
+      padding: 48px 40px;
+      margin: 20px 0 70px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      color: white;
+    }
+    .cta-text h3 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .cta-btn {
+      background: var(--accent-gold);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1A2C3E;
+      transition: 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .cta-btn:hover {
+      background: #f7c44e;
+      transform: scale(0.97);
+    }
+
+    footer {
+      background: #F0F4F8;
+      padding: 32px 0;
+      text-align: center;
+      border-top: 1px solid rgba(27, 123, 110, 0.2);
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .footer-email-phone {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-email-phone a {
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 500;
+    }
+    hr {
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid #cbdbe0;
+      width: 80px;
+    }
+
+    @media (max-width: 760px) {
+      .nav-flex {
+        flex-direction: column;
+        text-align: center;
+      }
+      .hero h2 {
+        font-size: 2.3rem;
+      }
+      .contact-info {
+        justify-content: center;
+      }
+      .logo-area {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo-area">
+      <!-- logo image from provided link -->
+      <img class="logo-img" src="https://scontent.fdac27-1.fna.fbcdn.net/v/t39.30808-1/476163407_1157048156426962_572763710457417497_n.jpg?stp=c24.24.2000.2000a_dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=typak939tg0Q7kNvwHsBfZs&_nc_oc=AdqJK7PlRbOpq2AWysrABTx0IQk8nbz19elGVPbr2eaHC1nMWlrQvayvIF11LEy1psA&_nc_zt=24&_nc_ht=scontent.fdac27-1.fna&_nc_gid=w4cCCmmoI8EttzoWnuOm-g&_nc_ss=7a32e&oh=00_Afx7r6HKIi3To28wGUFa8vQKkfKtjalgbNjMEkgQUYTaoQ&oe=69CD5935" alt="Bayah Logo">
+      <div class="logo-text">
+        <h1>Bayah</h1>
+        <span>digital elevation</span>
+      </div>
+    </div>
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:Bayah.com.bd@gmail.com">Bayah.com.bd@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <a href="tel:+8801650297000">+8801650297000</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="hero">
+      <h2>Innovative Tech Services<br> That Drive Real Growth</h2>
+      <p>Bayah combines creativity, strategy, and technology to elevate your brand — from stunning websites to data-driven marketing.</p>
+    </div>
+  </div>
+
+  <div class="services-section">
+    <div class="container">
+      <div class="section-title">Our Core Services</div>
+      <div class="section-sub">Click on any card to explore details & get in touch</div>
+
+      <div class="services-grid" id="servicesGrid">
+        <!-- Service 1: Website Design -->
+        <div class="service-card" data-service="website">
+          <img class="card-img" src="https://picsum.photos/id/20/600/400" alt="Website Design">
+          <div class="card-content">
+            <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>Website Design</h3>
+            <p>Stunning, responsive websites & eCommerce solutions. We craft high-performance UI/UX that converts visitors into loyal customers.</p>
+            <div class="badge">✨ modern & mobile-first</div>
+          </div>
+        </div>
+        <!-- Service 2: Social Media Marketing -->
+        <div class="service-card" data-service="social">
+          <img class="card-img" src="https://picsum.photos/id/26/600/400" alt="Social Media Marketing">
+          <div class="card-content">
+            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Social Media Marketing</h3>
+            <p>Strategic campaigns across Instagram, Facebook, LinkedIn. We grow your brand presence, engagement, and ROI with organic + paid mastery.</p>
+            <div class="badge">📈 audience growth</div>
+          </div>
+        </div>
+        <!-- Service 3: Video Editing -->
+        <div class="service-card" data-service="video">
+          <img class="card-img" src="https://picsum.photos/id/1/600/400" alt="Video Editing">
+          <div class="card-content">
+            <div class="service-icon"><i class="fas fa-video"></i></div>
+            <h3>Video Editing</h3>
+            <p>Captivating reels, promos, and storytelling. Our edits boost engagement and leave a lasting impression across platforms.</p>
+            <div class="badge">🎬 cinematic quality</div>
+          </div>
+        </div>
+        <!-- Service 4: Apps Development -->
+        <div class="service-card" data-service="apps">
+          <img class="card-img" src="https://picsum.photos/id/0/600/400" alt="Apps Development">
+          <div class="card-content">
+            <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Apps Development</h3>
+            <p>Native & cross-platform mobile apps (iOS/Android). We build scalable, user-friendly apps that solve real business problems.</p>
+            <div class="badge">📱 react native & flutter</div>
+          </div>
+        </div>
+        <!-- Service 5: Google Merchant & Tag Manager -->
+        <div class="service-card" data-service="google">
+          <img class="card-img" src="https://picsum.photos/id/82/600/400" alt="Google Merchant & Tag Manager">
+          <div class="card-content">
+            <div class="service-icon"><i class="fab fa-google"></i></div>
+            <h3>Google Merchant & Tag Manager</h3>
+            <p>Maximize visibility with Google Shopping campaigns, precise tracking, and advanced GTM setups to optimize conversions.</p>
+            <div class="badge">📊 data-driven insights</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="contact-cta">
+      <div class="cta-text">
+        <h3>Ready to scale your business?</h3>
+        <p>Let's discuss your next digital breakthrough — get in touch now.</p>
+      </div>
+      <a href="mailto:Bayah.com.bd@gmail.com" class="cta-btn"><i class="fas fa-paper-plane"></i> Contact Bayah</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-content">
+    <div class="footer-email-phone">
+      <a href="mailto:Bayah.com.bd@gmail.com"><i class="fas fa-envelope"></i> Bayah.com.bd@gmail.com</a>
+      <a href="tel:+8801650297000"><i class="fas fa-phone-alt"></i> +8801650297000</a>
+    </div>
+    <hr>
+    <p style="font-size: 0.85rem; color: #4F6F7F;">© 2025 Bayah — Tech services that inspire. Website Design · Social Media Marketing · Video Editing · Apps Development · Google Merchant & Tag Manager</p>
+  </div>
+</footer>
+
+<!-- Modal Structure -->
+<div id="serviceModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Service Name</h3>
+      <p id="modalSub">Expert solution tailored for you</p>
+    </div>
+    <div class="modal-body">
+      <p id="modalDescription">Detailed service description will appear here.</p>
+      <ul class="detail-list" id="modalFeatures"></ul>
+      <button id="modalContactBtn" class="modal-contact-btn">
+        <i class="fas fa-envelope"></i> Get a Quote for this Service
+      </button>
+    </div>
+    <div class="close-modal" id="closeModalBtn">&times;</div>
+  </div>
+</div>
+
+<script>
+  // Service detailed data
+  const servicesData = {
+    website: {
+      title: "Website Design",
+      subtitle: "Custom Web Solutions That Perform",
+      description: "Bayah creates visually stunning, ultra-responsive websites that not only look beautiful but drive conversions. From corporate websites to eCommerce platforms, we ensure fast loading, SEO-friendly architecture, and seamless user experience.",
+      features: ["Fully responsive design", "E-commerce & CMS integration", "Performance optimization", "UI/UX tailored to your brand"],
+      contactEmail: "Bayah.com.bd@gmail.com",
+      contactSubject: "Website Design Inquiry"
+    },
+    social: {
+      title: "Social Media Marketing",
+      subtitle: "Boost Engagement & Brand Loyalty",
+      description: "We build result-driven social strategies for Instagram, Facebook, LinkedIn, and TikTok. Our creative campaigns, content calendars, and ad management increase followers, engagement, and ROI.",
+      features: ["Organic growth strategies", "Paid ad campaigns (FB/IG/LinkedIn)", "Influencer collaboration", "Monthly analytics reports"],
+      contactEmail: "Bayah.com.bd@gmail.com",
+      contactSubject: "Social Media Marketing Inquiry"
+    },
+    video: {
+      title: "Video Editing",
+      subtitle: "Professional Edits That Captivate",
+      description: "Transform raw footage into compelling stories. Our video editing experts deliver cinematic reels, YouTube videos, promotional content, and social media shorts that grab attention and boost retention.",
+      features: ["Short-form edits (Reels/TikTok)", "Corporate & explainer videos", "Color grading & sound design", "Motion graphics & effects"],
+      contactEmail: "Bayah.com.bd@gmail.com",
+      contactSubject: "Video Editing Service Inquiry"
+    },
+    apps: {
+      title: "Apps Development",
+      subtitle: "Innovative Mobile Experiences",
+      description: "Build powerful iOS and Android applications with modern frameworks. We craft scalable, user-friendly apps tailored to your business needs — from MVP to enterprise solutions.",
+      features: ["Cross-platform (React Native/Flutter)", "Native iOS & Android", "Backend & API integration", "App Store deployment & support"],
+      contactEmail: "Bayah.com.bd@gmail.com",
+      contactSubject: "Apps Development Inquiry"
+    },
+    google: {
+      title: "Google Merchant & Tag Manager",
+      subtitle: "Data-Driven Google Marketing",
+      description: "We specialize in Google Merchant Center setups, product feed optimization, Google Shopping ads, and advanced Google Tag Manager implementations for precise conversion tracking and analytics.",
+      features: ["Google Merchant Center optimization", "GTM event tracking", "Shopping campaign management", "Enhanced eCommerce analytics"],
+      contactEmail: "Bayah.com.bd@gmail.com",
+      contactSubject: "Google Marketing & GTM Inquiry"
+    }
+  };
+
+  // DOM elements
+  const modal = document.getElementById('serviceModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalSub = document.getElementById('modalSub');
+  const modalDescription = document.getElementById('modalDescription');
+  const modalFeaturesList = document.getElementById('modalFeatures');
+  const modalContactBtn = document.getElementById('modalContactBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  // Open modal with specific service
+  function openModal(serviceKey) {
+    const data = servicesData[serviceKey];
+    if (!data) return;
+
+    modalTitle.innerText = data.title;
+    modalSub.innerText = data.subtitle;
+    modalDescription.innerText = data.description;
+    
+    // populate features list
+    modalFeaturesList.innerHTML = '';
+    data.features.forEach(feature => {
+      const li = document.createElement('li');
+      li.innerHTML = `<i class="fas fa-check-circle"></i> <span>${feature}</span>`;
+      modalFeaturesList.appendChild(li);
+    });
+
+    // update contact button to open mail with subject referring to the service
+    const subjectLine = encodeURIComponent(data.contactSubject);
+    modalContactBtn.onclick = () => {
+      window.location.href = `mailto:${data.contactEmail}?subject=${subjectLine}&body=Hello Bayah team,%0D%0A%0D%0AI am interested in your "${data.title}" service. Please share details and pricing.%0D%0A%0D%0AThank you.`;
+    };
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModalFunc() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // attach click listeners to each service card
+  const cards = document.querySelectorAll('.service-card');
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // avoid closing if clicked on modal triggers inside? but it's card.
+      const service = card.getAttribute('data-service');
+      if (service && servicesData[service]) {
+        openModal(service);
+      }
+    });
+  });
+
+  // close modal events
+  closeModalBtn.addEventListener('click', closeModalFunc);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModalFunc();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModalFunc();
+    }
+  });
+</script>
+</body>
+</html>
