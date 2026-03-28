@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Bayah | Digital Tech Services</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fefefe;
+      color: #1A2C3E;
+      scroll-behavior: smooth;
+      line-height: 1.4;
+    }
+
+    :root {
+      --primary-dark: #0B2B40;
+      --primary-teal: #1B7B6E;
+      --primary-teal-light: #2C9A8A;
+      --accent-gold: #E6B12E;
+      --accent-soft: #FFE6C7;
+      --gray-bg: #F8F9FC;
+      --card-white: #FFFFFF;
+      --shadow-sm: 0 15px 35px -12px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 25px 40px -16px rgba(27, 123, 110, 0.2);
+      --radius-card: 24px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 6px 14px rgba(0, 0, 0, 0.02);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 0;
+    }
+
+    .nav-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--primary-teal);
+      background: white;
+    }
+    .logo-text h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-teal) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .logo-text span {
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: var(--primary-teal);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--primary-dark);
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-teal);
+    }
+    .contact-info-small {
+      display: flex;
+      gap: 20px;
+    }
+    .contact-info-small a {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--primary-dark);
+    }
+
+    /* banner slider */
+    .banner-slider {
+      width: 100%;
+      position: relative;
+      margin: 20px 0 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .slider-dots {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 10;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      padding: 8px 16px;
+      border-radius: 40px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .dot.active-dot {
+      background-color: var(--accent-gold);
+      width: 24px;
+      border-radius: 6px;
+    }
+
+    /* page content */
+    .page-content {
+      min-height: 60vh;
+      padding: 40px 0 60px;
+    }
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .page-sub {
+      text-align: center;
+      color: #5A6E7E;
+      margin-bottom: 48px;
+      font-size: 1.1rem;
+    }
+
+    /* services grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 38px;
+    }
+    .service-card {
+      background: var(--card-white);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 1px solid rgba(27, 123, 110, 0.1);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    .card-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 24px 20px 28px;
+    }
+    .service-icon {
+      font-size: 2.2rem;
+      color: var(--primary-teal);
+      margin-bottom: 12px;
+    }
+    .service-card h3 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .badge {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-teal);
+      background: #E0F2EF;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    /* portfolio grid - service matching images */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 32px;
+    }
+    .portfolio-item {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: 0.3s;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+    .portfolio-info {
+      padding: 20px;
+    }
+    .portfolio-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--primary-dark);
+    }
+    .portfolio-category {
+      color: var(--primary-teal);
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-block;
+      background: #E0F2EF;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* about section */
+    .about-grid {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .about-text {
+      flex: 1.5;
+    }
+    .about-text p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: #2C3E4E;
+    }
+    .about-stats {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .stat-card {
+      background: var(--gray-bg);
+      padding: 24px;
+      border-radius: 24px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-teal);
+    }
+
+    /* contact page */
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+    }
+    .contact-info-card {
+      flex: 1;
+      background: var(--gray-bg);
+      padding: 32px;
+      border-radius: 32px;
+    }
+    .contact-form {
+      flex: 1.5;
+      background: white;
+      padding: 32px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #e0e4e8;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-teal);
+      box-shadow: 0 0 0 3px rgba(27, 123, 110, 0.1);
+    }
+    .submit-btn {
+      background: var(--primary-teal);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .submit-btn:hover {
+      background: var(--primary-teal-light);
+      transform: scale(0.98);
+    }
+
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 28px;
+      overflow: hidden;
+      animation: modalSlide 0.25s ease;
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-header {
+      background: linear-gradient(105deg, var(--primary-dark), var(--primary-teal));
+      padding: 24px;
+      color: white;
+    }
+    .modal-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+    .modal-body {
+      padding: 24px;
+    }
+    .modal-body ul {
+      margin: 16px 0;
+      padding-left: 20px;
+    }
+    .modal-body li {
+      margin: 10px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-contact-btn {
+      background: var(--primary-teal);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 40px;
+      width: 100%;
+      margin-top: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background: #F0F4F8;
+      padding: 32px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-content a {
+      text-decoration: none;
+      color: var(--primary-dark);
+    }
+    hr {
+      width: 60px;
+      margin: 8px auto;
+      border: none;
+      border-top: 2px solid var(--primary-teal);
+    }
+
+    @media (max-width: 860px) {
+      .slides-container { height: 320px; }
+      .nav-flex { flex-direction: column; }
+      .nav-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo-area">
+      <img class="logo-img" src="https://scontent.fdac27-1.fna.fbcdn.net/v/t39.30808-1/476163407_1157048156426962_572763710457417497_n.jpg?stp=c24.24.2000.2000a_dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=typak939tg0Q7kNvwHsBfZs&_nc_oc=AdqJK7PlRbOpq2AWysrABTx0IQk8nbz19elGVPbr2eaHC1nMWlrQvayvIF11LEy1psA&_nc_zt=24&_nc_ht=scontent.fdac27-1.fna&_nc_gid=w4cCCmmoI8EttzoWnuOm-g&_nc_ss=7a32e&oh=00_Afx7r6HKIi3To28wGUFa8vQKkfKtjalgbNjMEkgQUYTaoQ&oe=69CD5935" alt="Bayah Logo">
+      <div class="logo-text">
+        <h1>Bayah</h1>
+        <span>digital elevation</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#" data-page="home" class="active">Home</a>
+      <a href="#" data-page="portfolio">Portfolio</a>
+      <a href="#" data-page="about">About</a>
+      <a href="#" data-page="contact">Contact Us</a>
+      <div class="contact-info-small">
+        <a href="mailto:Bayah.com.bd@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+8801650297000"><i class="fas fa-phone-alt"></i></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<footer>
+  <div class="container footer-content">
+    <div>
+      <a href="mailto:Bayah.com.bd@gmail.com">Bayah.com.bd@gmail.com</a> &nbsp;|&nbsp;
+      <a href="tel:+8801650297000">+8801650297000</a>
+    </div>
+    <hr>
+    <p style="font-size: 0.85rem;">© 2025 Bayah — Website Design · Social Media Marketing · Video Editing · Apps Development · Google Merchant & Tag Manager</p>
+  </div>
+</footer>
+
+<!-- Modal for service details -->
+<div id="serviceModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Service</h3>
+      <p id="modalSub">Premium solution</p>
+    </div>
+    <div class="modal-body">
+      <p id="modalDescription"></p>
+      <ul id="modalFeatures"></ul>
+      <button id="modalContactBtn" class="modal-contact-btn"><i class="fas fa-envelope"></i> Get Quote for this Service</button>
+    </div>
+    <div class="close-modal" id="closeModalBtn">&times;</div>
+  </div>
+</div>
+
+<script>
+  // Services Data with matching images for portfolio
+  const servicesData = {
+    website: {
+      title: "Website Design", 
+      subtitle: "Custom Web Solutions", 
+      description: "Bayah creates visually stunning, ultra-responsive websites that drive conversions. From corporate sites to eCommerce platforms, we deliver pixel-perfect design with seamless functionality.",
+      features: ["Fully responsive design", "E-commerce & CMS integration", "Performance optimization", "UI/UX tailored to your brand"],
+      contactSubject: "Website Design Inquiry", 
+      img: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+      portfolioImg: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg"
+    },
+    social: {
+      title: "Social Media Marketing", 
+      subtitle: "Boost Engagement", 
+      description: "Strategic campaigns across Instagram, Facebook, LinkedIn. Organic + paid mastery to grow brand presence and ROI with data-driven content.",
+      features: ["Organic growth strategies", "Paid ad campaigns", "Influencer collaboration", "Monthly analytics"], 
+      contactSubject: "Social Media Marketing Inquiry",
+      img: "https://images.pexels.com/photos/3760359/pexels-photo-3760359.jpeg",
+      portfolioImg: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg"
+    },
+    video: {
+      title: "Video Editing", 
+      subtitle: "Cinematic Quality", 
+      description: "Transform raw footage into compelling stories. Reels, promos, YouTube content that grabs attention and boosts engagement.",
+      features: ["Short-form edits", "Corporate & explainer videos", "Color grading", "Motion graphics"], 
+      contactSubject: "Video Editing Inquiry",
+      img: "https://images.pexels.com/photos/2187175/pexels-photo-2187175.jpeg",
+      portfolioImg: "https://images.pexels.com/photos/4386213/pexels-photo-4386213.jpeg"
+    },
+    apps: {
+      title: "Apps Development", 
+      subtitle: "Mobile Experiences", 
+      description: "Native & cross-platform mobile apps (iOS/Android). Scalable, user-friendly solutions from MVP to enterprise with modern frameworks.",
+      features: ["React Native/Flutter", "Native iOS & Android", "Backend integration", "App Store deployment"], 
+      contactSubject: "Apps Development Inquiry",
+      img: "https://images.pexels.com/photos/2882566/pexels-photo-2882566.jpeg",
+      portfolioImg: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg"
+    },
+    google: {
+      title: "Google Merchant & Tag Manager", 
+      subtitle: "Data-Driven Marketing", 
+      description: "Google Merchant Center optimization, Shopping ads, GTM tracking for precise analytics and conversion tracking.",
+      features: ["Merchant Center setup", "GTM event tracking", "Shopping campaign management", "Enhanced analytics"], 
+      contactSubject: "Google Marketing Inquiry",
+      img: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg",
+      portfolioImg: "https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg"
+    }
+  };
+
+  // Portfolio items based on each service (matching images)
+  const portfolioItems = [
+    { title: "Modern E-Commerce Platform", category: "Website Design", serviceKey: "website", img: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg" },
+    { title: "Creative Agency Website", category: "Website Design", serviceKey: "website", img: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg" },
+    { title: "Instagram Growth Campaign", category: "Social Media Marketing", serviceKey: "social", img: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg" },
+    { title: "Facebook Ad Strategy", category: "Social Media Marketing", serviceKey: "social", img: "https://images.pexels.com/photos/3760359/pexels-photo-3760359.jpeg" },
+    { title: "Corporate Explainer Video", category: "Video Editing", serviceKey: "video", img: "https://images.pexels.com/photos/4386213/pexels-photo-4386213.jpeg" },
+    { title: "Social Media Reels Package", category: "Video Editing", serviceKey: "video", img: "https://images.pexels.com/photos/2187175/pexels-photo-2187175.jpeg" },
+    { title: "Health & Fitness App", category: "Apps Development", serviceKey: "apps", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg" },
+    { title: "E-Learning Mobile App", category: "Apps Development", serviceKey: "apps", img: "https://images.pexels.com/photos/2882566/pexels-photo-2882566.jpeg" },
+    { title: "Google Shopping Optimization", category: "Google Marketing", serviceKey: "google", img: "https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg" },
+    { title: "GTM Analytics Setup", category: "Google Marketing", serviceKey: "google", img: "https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg" }
+  ];
+
+  // Page templates
+  const pages = {
+    home: `
+      <div class="container">
+        <div class="banner-slider">
+          <div class="slides-container" id="slidesContainer">
+            <div class="slide active"><img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" alt="Web Development"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg" alt="Social Media"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg" alt="Mobile Apps"></div>
+          </div>
+          <div class="slider-dots" id="sliderDots"><span class="dot active-dot"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div style="text-align:center; padding:20px 0;">
+          <h2 style="font-size:2.8rem; background: linear-gradient(120deg, #0B2B40, #1B7B6E); background-clip: text; -webkit-background-clip: text; color: transparent;">Innovative Tech Services<br>That Drive Real Growth</h2>
+          <p style="color:#5A6E7E; margin-top:16px;">Bayah combines creativity, strategy, and technology to elevate your brand.</p>
+        </div>
+        <div class="services-section">
+          <h2 class="page-title">Our Core Services</h2>
+          <p class="page-sub">Click on any card to explore details & get in touch</p>
+          <div class="services-grid" id="servicesGrid"></div>
+        </div>
+        <div style="background:linear-gradient(110deg,#0B2B40,#104F45); border-radius:48px; padding:40px; margin:40px 0; display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; color:white;">
+          <div><h3 style="font-size:1.8rem;">Ready to scale your business?</h3><p>Let's discuss your next breakthrough.</p></div>
+          <a href="#" data-page="contact" style="background:#E6B12E; padding:14px 32px; border-radius:40px; text-decoration:none; color:#1A2C3E; font-weight:bold; display:inline-flex; gap:8px; align-items:center;">Contact Bayah <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    `,
+    portfolio: `
+      <div class="container">
+        <h1 class="page-title">Our Creative Portfolio</h1>
+        <p class="page-sub">Real projects showcasing our expertise across all services</p>
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+      </div>
+    `,
+    about: `
+      <div class="container">
+        <h1 class="page-title">About Bayah</h1>
+        <p class="page-sub">We are a team of tech enthusiasts & creative strategists</p>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>Bayah was founded with a mission to empower businesses through cutting-edge digital solutions. From web development to data-driven marketing, we merge creativity with technical excellence.</p>
+            <p>Our team has delivered 200+ successful projects, helping brands achieve measurable growth. We believe in transparency, innovation, and long-term partnerships.</p>
+            <p>Specialized in <strong>Website Design, Social Media Marketing, Video Editing, Apps Development, and Google Marketing</strong> solutions — we're your one-stop tech partner for digital transformation.</p>
+          </div>
+          <div class="about-stats">
+            <div class="stat-card"><div class="stat-number">200+</div><div>Projects Delivered</div></div>
+            <div class="stat-card"><div class="stat-number">50+</div><div>Happy Clients</div></div>
+            <div class="stat-card"><div class="stat-number">5+</div><div>Years Experience</div></div>
+          </div>
+        </div>
+      </div>
+    `,
+    contact: `
+      <div class="container">
+        <h1 class="page-title">Contact Us</h1>
+        <p class="page-sub">Let's start a conversation — we're here to help</p>
+        <div class="contact-wrapper">
+          <div class="contact-info-card">
+            <i class="fas fa-envelope" style="font-size:2.5rem; color:var(--primary-teal);"></i>
+            <h3 style="margin:16px 0 8px;">Email</h3>
+            <a href="mailto:Bayah.com.bd@gmail.com" style="text-decoration:none; color:var(--primary-dark);">Bayah.com.bd@gmail.com</a>
+            <h3 style="margin:24px 0 8px;">Phone</h3>
+            <a href="tel:+8801650297000" style="text-decoration:none; color:var(--primary-dark);">+8801650297000</a>
+            <h3 style="margin:24px 0 8px;">Office</h3>
+            <p>Dhaka, Bangladesh (Remote & Global)</p>
+            <hr style="margin:24px 0;">
+            <p><i class="fas fa-clock"></i> Mon - Fri: 9AM - 8PM (BST)</p>
+          </div>
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+              <div class="form-group"><input type="email" placeholder="Email Address" required></div>
+              <div class="form-group"><input type="text" placeholder="Phone (Optional)"></div>
+              <div class="form-group"><textarea rows="4" placeholder="Tell us about your project..."></textarea></div>
+              <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    `
+  };
+
+  let currentPage = "home";
+  let slideInterval;
+
+  function renderPage(page) {
+    const app = document.getElementById('app');
+    app.innerHTML = pages[page];
+    if (page === 'home') {
+      initHomePage();
+    } else if (page === 'portfolio') {
+      renderPortfolio();
+    } else if (page === 'contact') {
+      const form = document.getElementById('contactForm');
+      if(form) form.addEventListener('submit', (e) => { e.preventDefault(); alert("Thank you! We'll get back to you within 24 hours."); form.reset(); });
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.classList.remove('active');
+      if(link.getAttribute('data-page') === page) link.classList.add('active');
+    });
+  }
+
+  function initHomePage() {
+    const grid = document.getElementById('servicesGrid');
+    if(grid) {
+      grid.innerHTML = '';
+      Object.keys(servicesData).forEach(key => {
+        const s = servicesData[key];
+        grid.innerHTML += `
+          <div class="service-card" data-service="${key}">
+            <img class="card-img" src="${s.img}" alt="${s.title}">
+            <div class="card-content">
+              <div class="service-icon"><i class="fas ${getIcon(key)}"></i></div>
+              <h3>${s.title}</h3>
+              <p>${s.description.substring(0, 100)}...</p>
+              <div class="badge">✨ Click for details</div>
+            </div>
+          </div>
+        `;
+      });
+      document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const serviceKey = card.getAttribute('data-service');
+          if(serviceKey) openModal(serviceKey);
+        });
+      });
+    }
+    startBannerSlider();
+    // Handle contact CTA click
+    document.querySelectorAll('[data-page="contact"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderPage('contact');
+        window.scrollTo(0,0);
+      });
+    });
+  }
+
+  function renderPortfolio() {
+    const portfolioGrid = document.getElementById('portfolioGrid');
+    if(portfolioGrid) {
+      portfolioGrid.innerHTML = portfolioItems.map(item => `
+        <div class="portfolio-item">
+          <img src="${item.img}" alt="${item.title}">
+          <div class="portfolio-info">
+            <h3>${item.title}</h3>
+            <span class="portfolio-category">${item.category}</span>
+            <p style="margin-top:12px; color:#5A6E7E;">Delivered with excellence by Bayah team</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  function getIcon(key) {
+    const icons = { website: "fa-laptop-code", social: "fa-chart-line", video: "fa-video", apps: "fa-mobile-alt", google: "fa-google" };
+    return icons[key] || "fa-star";
+  }
+
+  function startBannerSlider() {
+    if(slideInterval) clearInterval(slideInterval);
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    if(!slides.length) return;
+    let current = 0;
+    function showSlide(index) {
+      slides.forEach((s,i) => s.classList.toggle('active', i===index));
+      dots.forEach((d,i) => d.classList.toggle('active-dot', i===index));
+      current = index;
+    }
+    function nextSlide() { showSlide((current+1)%slides.length); }
+    if(dots.length) dots.forEach((dot, i) => dot.addEventListener('click', () => { showSlide(i); restartInterval(); }));
+    function restartInterval() { clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 7000); }
+    showSlide(0);
+    slideInterval = setInterval(nextSlide, 7000);
+  }
+
+  // Modal
+  const modal = document.getElementById('serviceModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalSub = document.getElementById('modalSub');
+  const modalDesc = document.getElementById('modalDescription');
+  const modalFeatures = document.getElementById('modalFeatures');
+  const modalBtn = document.getElementById('modalContactBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  function openModal(key) {
+    const s = servicesData[key];
+    if(!s) return;
+    modalTitle.innerText = s.title;
+    modalSub.innerText = s.subtitle;
+    modalDesc.innerText = s.description;
+    modalFeatures.innerHTML = s.features.map(f => `<li><i class="fas fa-check-circle" style="color:#1B7B6E"></i> ${f}</li>`).join('');
+    modalBtn.onclick = () => window.location.href = `mailto:Bayah.com.bd@gmail.com?subject=${encodeURIComponent(s.contactSubject)}&body=Hello Bayah team,%0D%0A%0D%0AI am interested in your ${s.title} service. Please share details and pricing.%0D%0A%0D%0AThank you.`;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModalFunc() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+  closeBtn.onclick = closeModalFunc;
+  modal.onclick = (e) => { if(e.target === modal) closeModalFunc(); };
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && modal.classList.contains('active')) closeModalFunc(); });
+
+  // Navigation
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = link.getAttribute('data-page');
+      if(page) {
+        currentPage = page;
+        renderPage(page);
+        window.scrollTo(0,0);
+      }
+    });
+  });
+
+  // Initial render
+  renderPage('home');
+</script>
+</body>
+</html>
